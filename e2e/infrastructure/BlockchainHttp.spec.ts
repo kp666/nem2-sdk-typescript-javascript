@@ -106,4 +106,17 @@ describe('BlockchainHttp', () => {
                 });
         });
     });
+
+    describe('getMerkleAuditProof', () => {
+        it('should return the merkle audit proof', (done) => {
+            const hash = 'A983745F69959AF438C5B59501B7B6FCD4312DE1F5252A6E8B54D09E23266A7C';
+            blockchainHttp.getMerkleAuditProof(250934, hash)
+                .subscribe((merkleAuditProof) => {
+                    expect(merkleAuditProof.transactionHash).to.be.equal(hash);
+                    expect(merkleAuditProof.rootNodeHash).to.have.lengthOf(hash.length);
+                    expect(merkleAuditProof.merklePath).to.have.length.above(0);
+                    done();
+                });
+        });
+    });
 });

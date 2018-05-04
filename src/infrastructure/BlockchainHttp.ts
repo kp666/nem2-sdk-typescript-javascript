@@ -22,6 +22,7 @@ import {PublicAccount} from '../model/account/PublicAccount';
 import {BlockchainScore} from '../model/blockchain/BlockchainScore';
 import {BlockchainStorageInfo} from '../model/blockchain/BlockchainStorageInfo';
 import {BlockInfo} from '../model/blockchain/BlockInfo';
+import {MerkleAuditProof} from '../model/blockchain/MerkleAuditProof';
 import {Transaction} from '../model/transaction/Transaction';
 import {UInt64} from '../model/UInt64';
 import {BlockchainRepository} from './BlockchainRepository';
@@ -160,5 +161,15 @@ export class BlockchainHttp extends Http implements BlockchainRepository {
                 blockchainStorageInfoDTO.numAccounts,
             );
         });
+    }
+
+    /**
+     * Gets the Merkle audit proof path for the given transaction, from bottom to top
+     * @returns Observable<MerkleAuditProof>
+     */
+    public getMerkleAuditProof(height: number, hash: string): Observable<MerkleAuditProof> {
+        return Observable.fromPromise(this.blockchainRoutesApi.getMerkleTree(height, hash)).map(
+            (merkleAuditProofDTO) => new MerkleAuditProof(merkleAuditProofDTO.rootHash, hash, merkleAuditProofDTO.merklePath)
+        );
     }
 }

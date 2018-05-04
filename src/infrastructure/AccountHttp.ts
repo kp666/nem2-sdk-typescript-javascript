@@ -88,7 +88,7 @@ export class AccountHttp extends Http implements AccountRepository {
      */
     public getAccountsInfo(addresses: Address[]): Observable<AccountInfo[]> {
         const accountIdsBody = {
-            accountIds: addresses.map((address) => address.plain()),
+            addresses: addresses.map((address) => address.plain()),
         };
         return Observable.fromPromise(
             this.accountRoutesApi.getAccountsInfo(accountIdsBody)).map((accountsInfoMetaDataDTO) => {

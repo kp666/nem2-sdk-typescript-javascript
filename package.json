@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "js-joda": "^1.6.2",
+    "js-sha3": "^0.7.0",
     "nem2-library": "0.9.0",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
