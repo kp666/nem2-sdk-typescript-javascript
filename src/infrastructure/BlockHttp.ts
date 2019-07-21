@@ -175,9 +175,8 @@ export class BlockHttp extends Http implements BlockRepository {
             this.blockRoutesApi.getMerkleReceipts(height, hash)).pipe(map((merkleProofReceipt: MerkleProofInfoDTO) => {
                 return new MerkleProofInfo(
                     new MerkleProofInfoPayload(
-                        merkleProofReceipt.payload.merklePath!.map(
+                        merkleProofReceipt.merklePath!.map(
                             (payload) => new MerklePathItem(payload.position, payload.hash))),
-                    merkleProofReceipt.type,
                 );
         }));
     }
@@ -197,8 +196,7 @@ export class BlockHttp extends Http implements BlockRepository {
             this.blockRoutesApi.getMerkleReceipts(height, hash)).pipe(map((merkleProofTransaction: MerkleProofInfoDTO) => {
                 return new MerkleProofInfo(
                     new MerkleProofInfoPayload(
-                        merkleProofTransaction.payload.merklePath!.map((payload) => new MerklePathItem(payload.position, payload.hash))),
-                        merkleProofTransaction.type,
+                        merkleProofTransaction.merklePath!.map((payload) => new MerklePathItem(payload.position, payload.hash))),
                 );
         }));
     }

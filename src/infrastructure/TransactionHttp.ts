@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import * as requestPromise from 'request-promise-native';
+import axios from 'axios';
 import {from as observableFrom, Observable, throwError as observableThrowError} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {PublicAccount} from '../model/account/PublicAccount';
@@ -185,17 +185,17 @@ export class TransactionHttp extends Http implements TransactionRepository {
         );
 
         return observableFrom(
-            requestPromise.put({url: this.url + `/transaction/sync`, body: syncAnnounce, json: true}),
+            axios.put(this.url + `/transaction/sync`, {body: syncAnnounce, json: true}),
         ).pipe(map((response) => {
-            if (response.status !== undefined) {
+            if (response.data.status !== undefined) {
                 throw new TransactionStatus(
                     'failed',
-                    response.status,
-                    response.hash,
-                    Deadline.createFromDTO(response.deadline),
+                    response.data.status,
+                    response.data.hash,
+                    Deadline.createFromDTO(response.data.deadline),
                     UInt64.fromUint(0));
             } else {
-                return CreateTransactionFromDTO(response);
+                return CreateTransactionFromDTO(response.data);
             }
         }), catchError((err) => {
             if (err.statusCode === 405) {

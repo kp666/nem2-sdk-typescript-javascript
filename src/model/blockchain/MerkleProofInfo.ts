@@ -28,11 +28,7 @@ export class MerkleProofInfo {
     constructor(/**
                  * The merkle proof payload
                  */
-                public readonly payload: MerkleProofInfoPayload,
-                /**
-                 * The merkle proof type
-                 */
-                public readonly type: string) {
+                public readonly payload: MerkleProofInfoPayload) {
 
     }
 }

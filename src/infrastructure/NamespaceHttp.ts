@@ -188,8 +188,11 @@ export class NamespaceHttp extends Http implements NamespaceRepository {
                         throw namespaceInfoDTO;
                     }
 
-                    if (namespaceInfoDTO.namespace.alias.type === AliasType.None
-                        || namespaceInfoDTO.namespace.alias.type !== AliasType.Mosaic
+                    // TypeScript type narrowing bug with swagger generated `AliasTypeEnum`
+                    // Fix: forced type narrow to `number` for `===` operator
+                    const narrowedType: number = namespaceInfoDTO.namespace.alias.type;
+                    if (narrowedType === AliasType.None
+                        || narrowedType !== AliasType.Mosaic
                         || !namespaceInfoDTO.namespace.alias.mosaicId) {
                         throw new Error('No mosaicId is linked to namespace \'' + namespaceInfoDTO.namespace.level0 + '\'');
                     }
@@ -213,8 +216,11 @@ export class NamespaceHttp extends Http implements NamespaceRepository {
                         throw namespaceInfoDTO;
                     }
 
-                    if (namespaceInfoDTO.namespace.alias.type === AliasType.None
-                        || namespaceInfoDTO.namespace.alias.type !== AliasType.Address
+                    // TypeScript type narrowing bug with swagger generated `AliasTypeEnum`
+                    // Fix: forced type narrow to `number` for `===` operator
+                    const narrowedType: number = namespaceInfoDTO.namespace.alias.type;
+                    if (narrowedType === AliasType.None
+                        || narrowedType !== AliasType.Address
                         || !namespaceInfoDTO.namespace.alias.address) {
                         throw new Error('No address is linked to namespace \'' + namespaceInfoDTO.namespace.level0 + '\'');
                     }
