@@ -18,7 +18,7 @@ import {from as observableFrom, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import { NodeInfo } from '../model/node/NodeInfo';
 import { NodeTime } from '../model/node/NodeTime';
-import { NodeInfoDTO, NodeRoutesApi, NodeTimeDTO } from './api';
+import { Configuration, NodeInfoDTO, NodeRoutesApi, NodeTimeDTO } from './index';
 import {Http} from './Http';
 import {NodeRepository} from './NodeRepository';
 
@@ -40,7 +40,7 @@ export class NodeHttp extends Http implements NodeRepository {
      */
     constructor(url: string) {
         super();
-        this.nodeRoutesApi = new NodeRoutesApi(url);
+        this.nodeRoutesApi = new NodeRoutesApi(new Configuration({basePath: url}));
 
     }
 

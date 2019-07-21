@@ -28,7 +28,7 @@ import {NamespaceId} from '../model/namespace/NamespaceId';
 import {NamespaceInfo} from '../model/namespace/NamespaceInfo';
 import {NamespaceName} from '../model/namespace/NamespaceName';
 import {UInt64} from '../model/UInt64';
-import { NamespaceInfoDTO, NamespaceNameDTO, NamespaceRoutesApi } from './api';
+import { Configuration, NamespaceInfoDTO, NamespaceNameDTO, NamespaceRoutesApi } from './index';
 import {Http} from './Http';
 import {NamespaceRepository} from './NamespaceRepository';
 import {NetworkHttp} from './NetworkHttp';
@@ -54,7 +54,7 @@ export class NamespaceHttp extends Http implements NamespaceRepository {
     constructor(url: string, networkHttp?: NetworkHttp) {
         networkHttp = networkHttp == null ? new NetworkHttp(url) : networkHttp;
         super(networkHttp);
-        this.namespaceRoutesApi = new NamespaceRoutesApi(url);
+        this.namespaceRoutesApi = new NamespaceRoutesApi(new Configuration({basePath: url}));
     }
 
     /**

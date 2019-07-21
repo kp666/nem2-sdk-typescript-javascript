@@ -18,7 +18,7 @@ import {from as observableFrom, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BlockchainStorageInfo} from '../model/blockchain/BlockchainStorageInfo';
 import { ServerInfo } from '../model/diagnostic/ServerInfo';
-import { DiagnosticRoutesApi, ServerDTO, StorageInfoDTO } from './api';
+import { Configuration, DiagnosticRoutesApi, ServerDTO, StorageInfoDTO } from './index';
 import {DiagnosticRepository} from './DiagnosticRepository';
 import {Http} from './Http';
 
@@ -40,7 +40,7 @@ export class DiagnosticHttp extends Http implements DiagnosticRepository {
      */
     constructor(url: string) {
         super();
-        this.diagnosticRoutesApi = new DiagnosticRoutesApi(url);
+        this.diagnosticRoutesApi = new DiagnosticRoutesApi(new Configuration({basePath: url}));
     }
 
     /**

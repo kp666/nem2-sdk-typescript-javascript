@@ -37,10 +37,11 @@ import { AccountInfoDTO,
          AccountRestrictionsDTO,
          AccountRestrictionsInfoDTO,
          AccountRoutesApi,
+         Configuration,
          MosaicDTO,
          MultisigAccountGraphInfoDTO,
          MultisigAccountInfoDTO,
-         TransactionInfoDTO } from './api';
+         TransactionInfoDTO } from './index';
 import {Http} from './Http';
 import {NetworkHttp} from './NetworkHttp';
 import {QueryParams} from './QueryParams';
@@ -66,7 +67,7 @@ export class AccountHttp extends Http implements AccountRepository {
     constructor(url: string, networkHttp?: NetworkHttp) {
         networkHttp = networkHttp == null ? new NetworkHttp(url) : networkHttp;
         super(networkHttp);
-        this.accountRoutesApi = new AccountRoutesApi(url);
+        this.accountRoutesApi = new AccountRoutesApi(new Configuration({basePath: url}));
     }
 
     /**

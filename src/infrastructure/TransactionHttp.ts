@@ -30,9 +30,10 @@ import {TransactionType} from '../model/transaction/TransactionType';
 import {UInt64} from '../model/UInt64';
 import { AnnounceTransactionInfoDTO,
          BlockInfoDTO, BlockRoutesApi,
+         Configuration,
          TransactionInfoDTO,
          TransactionRoutesApi,
-         TransactionStatusDTO } from './api';
+         TransactionStatusDTO } from './index';
 import {Http} from './Http';
 import {CreateTransactionFromDTO} from './transaction/CreateTransactionFromDTO';
 import {TransactionRepository} from './TransactionRepository';
@@ -61,8 +62,8 @@ export class TransactionHttp extends Http implements TransactionRepository {
      */
     constructor(private readonly url: string) {
         super();
-        this.transactionRoutesApi = new TransactionRoutesApi(url);
-        this.blockRoutesApi = new BlockRoutesApi(url);
+        this.transactionRoutesApi = new TransactionRoutesApi(new Configuration({basePath: url}));
+        this.blockRoutesApi = new BlockRoutesApi(new Configuration({basePath: url}));
     }
 
     /**

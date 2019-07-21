@@ -20,7 +20,8 @@ import {BlockchainScore} from '../model/blockchain/BlockchainScore';
 import {UInt64} from '../model/UInt64';
 import { BlockchainScoreDTO,
          ChainRoutesApi,
-         HeightInfoDTO } from './api';
+         Configuration,
+         HeightInfoDTO } from './index';
 import { ChainRepository } from './ChainRepository';
 import {Http} from './Http';
 
@@ -42,7 +43,7 @@ export class ChainHttp extends Http implements ChainRepository {
      */
     constructor(url: string) {
         super();
-        this.chainRoutesApi = new ChainRoutesApi(url);
+        this.chainRoutesApi = new ChainRoutesApi(new Configuration({basePath: url}));
     }
 
     /**

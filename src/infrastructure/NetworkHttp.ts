@@ -17,7 +17,7 @@
 import {from as observableFrom, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {NetworkType} from '../model/blockchain/NetworkType';
-import { NetworkRoutesApi, NetworkTypeDTO } from './api';
+import { Configuration, NetworkRoutesApi, NetworkTypeDTO } from './index';
 import {Http} from './Http';
 import {NetworkRepository} from './NetworkRepository';
 
@@ -39,7 +39,7 @@ export class NetworkHttp extends Http implements NetworkRepository {
      */
     constructor(url: string) {
         super();
-        this.networkRoutesApi = new NetworkRoutesApi(url);
+        this.networkRoutesApi = new NetworkRoutesApi(new Configuration({basePath: url}));
 
     }
 

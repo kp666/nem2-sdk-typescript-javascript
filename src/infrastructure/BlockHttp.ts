@@ -26,9 +26,10 @@ import {Transaction} from '../model/transaction/Transaction';
 import {UInt64} from '../model/UInt64';
 import { BlockInfoDTO,
          BlockRoutesApi,
+         Configuration,
          MerkleProofInfoDTO,
          StatementsDTO,
-         TransactionInfoDTO } from './api';
+         TransactionInfoDTO } from './index';
 import {BlockRepository} from './BlockRepository';
 import {Http} from './Http';
 import { NetworkHttp } from './NetworkHttp';
@@ -70,7 +71,7 @@ export class BlockHttp extends Http implements BlockRepository {
     constructor(url: string, networkHttp?: NetworkHttp) {
         networkHttp = networkHttp == null ? new NetworkHttp(url) : networkHttp;
         super(networkHttp);
-        this.blockRoutesApi = new BlockRoutesApi(url);
+        this.blockRoutesApi = new BlockRoutesApi(new Configuration({basePath: url}));
     }
 
     /**
